@@ -13,9 +13,10 @@ function love.load()
     Ball.center(ball)
     Ball.setSpeed(ball, 2)
  
-    --Ball.setDirectionToLeft(ball)
-    --Ball.setDirectionToRight(ball)
+    Ball.setDirectionToLeft(ball)
+    Ball.setDirectionToRight(ball)
     --Ball.setDirectionToDownLeft(ball)
+    
     --Ball.setDirectionToUpLeft(ball)
 end
 
@@ -31,21 +32,25 @@ function love.update()
     -- down bar collision
     if ball.yPosition >= screenHeight - ball.height then
       print("collision down")
+      ball.ySpeed = - ball.ySpeed 
     end
     
     -- up bar collision
     if ball.yPosition <= 0 then
       print("collision up")
+      ball.ySpeed = - ball.ySpeed
     end
     
     -- right bar collision
     if ball.xPosition >= screenWidth then
       print("right collision")
+      ball.xSpeed = - ball.xSpeed
     end
     
     -- left bar collision
     if ball.xPosition <= 0 then
       print("left collision")
+      ball.xSpeed = - ball.xSpeed
     end
 
 
