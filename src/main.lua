@@ -64,7 +64,8 @@ function love.update()
         ball.yPosition > player1.pad.yPosition and
         ball.yPosition < player1.pad.yPosition + player1.pad.height then
       print("collision with left bar")
-      ball.xSpeed = - ball.xSpeed   
+      ball.xPosition = player1.pad.xPosition + player1.pad.width
+      ball.xSpeed = - ball.xSpeed
     end
     
     -- right bar
@@ -72,7 +73,8 @@ function love.update()
         ball.yPosition > player2.pad.yPosition and
         ball.yPosition < player2.pad.yPosition + player2.pad.height then
       print("collision with right bar")
-      ball.xSpeed = - ball.xSpeed   
+      ball.xPosition = player2.pad.xPosition
+      ball.xSpeed = - ball.xSpeed
     end
     
     if false then
