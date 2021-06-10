@@ -1,14 +1,23 @@
-player = require("player")
+local Player = require("player")
+local Ball = require("ball")
 
 function love.load()
-    player1 = player.getPlayer(80, 100, 35, 100)
-    player2 = player.getPlayer(700, 100, 35, 100)
+    -- create two players
+    player1 = Player.getPlayer(80, 100, 35, 100)
+    player2 = Player.getPlayer(700, 100, 35, 100)
+
+    -- create a centered ball
+    ball = Ball.getBall(0, 0, 20, 30)
+    Ball.center(ball)
 end
 
 function love.update()
-
     screenHeight = love.graphics.getHeight()
-
+    
+    -- animate ball
+    ball.xPosition = ball.xPosition + 2
+    ball.yPosition = ball.yPosition + 2
+    
     if love.keyboard.isDown("up") and 
         player1.pad.yPosition > 0 and 
         player2.pad.yPosition > 0  then
@@ -25,6 +34,7 @@ function love.update()
 end
 
 function love.draw()
+    -- draw 2 players
     love.graphics.rectangle(
         "fill",
         player1.pad.xPosition,
@@ -32,13 +42,20 @@ function love.draw()
         player1.pad.width,
         player1.pad.height
     )
-
     love.graphics.rectangle(
         "fill",
         player2.pad.xPosition,
         player2.pad.yPosition,
         player2.pad.width,
         player2.pad.height
+    )
+    -- draw the ball
+    love.graphics.rectangle(
+        "fill",
+        ball.xPosition,
+        ball.yPosition,
+        ball.width,
+        ball.height
     )
 
 end
