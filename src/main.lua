@@ -1,22 +1,27 @@
+require("env")
+
 local Player = require("player")
 local Ball = require("ball")
+
 
 function love.load()
     -- create two players
     player1 = Player.getPlayer(80, 100, 35, 100)
     player2 = Player.getPlayer(700, 100, 35, 100)
-
     -- create a centered ball
     ball = Ball.getBall(0, 0, 20, 30)
     Ball.center(ball)
+    Ball.setSpeed(ball, 2)
 end
 
 function love.update()
     screenHeight = love.graphics.getHeight()
-    
     -- animate ball
-    ball.xPosition = ball.xPosition + 2
-    ball.yPosition = ball.yPosition + 2
+    --Ball.goDownLeft(ball)
+    --Ball.goUpLeft(ball)
+    --Ball.goUpRight(ball)
+    --Ball.goDownRight(ball)
+    
     
     if love.keyboard.isDown("up") and 
         player1.pad.yPosition > 0 and 
