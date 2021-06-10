@@ -12,17 +12,43 @@ function love.load()
     ball = Ball.getBall(0, 0, 20, 30)
     Ball.center(ball)
     Ball.setSpeed(ball, 2)
+ 
+    --Ball.setDirectionToLeft(ball)
+    --Ball.setDirectionToRight(ball)
+    --Ball.setDirectionToDownLeft(ball)
+    --Ball.setDirectionToUpLeft(ball)
 end
 
 function love.update()
     screenHeight = love.graphics.getHeight()
+    screenWidth = love.graphics.getWidth()
+    
     -- animate ball
-    --Ball.goDownLeft(ball)
-    --Ball.goUpLeft(ball)
-    --Ball.goUpRight(ball)
-    --Ball.goDownRight(ball)
+    Ball.updatePosition(ball)
     
+    -- collision detect
     
+    -- down bar collision
+    if ball.yPosition >= screenHeight - ball.height then
+      print("collision down")
+    end
+    
+    -- up bar collision
+    if ball.yPosition <= 0 then
+      print("collision up")
+    end
+    
+    -- right bar collision
+    if ball.xPosition >= screenWidth then
+      print("right collision")
+    end
+    
+    -- left bar collision
+    if ball.xPosition <= 0 then
+      print("left collision")
+    end
+
+
     if love.keyboard.isDown("up") and 
         player1.pad.yPosition > 0 and 
         player2.pad.yPosition > 0  then

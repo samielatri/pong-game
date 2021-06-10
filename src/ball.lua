@@ -76,6 +76,27 @@ ball.goDownLeft = function(animatedBall)
     ball.updatePosition(animatedBall)
 end
 
+ball.setDirectionToLeft = function(animatedBall)
+  animatedBall.xSpeed = ball.getNegativeSpeed(animatedBall.xSpeed)
+  animatedBall.ySpeed = 0
+end
+
+ball.setDirectionToRight = function(animatedBall)
+  animatedBall.xSpeed = ball.getPositiveSpeed(animatedBall.xSpeed)
+  animatedBall.ySpeed = 0
+end
+
+ball.goLeft = function(animatedBall)
+    ball.setDirectionToLeft(animatedBall)
+    ball.updatePosition(animatedBall)
+end
+
+ball.goRight = function(animatedBall)
+    ball.setDirectionToRight(animatedBall)
+    ball.updatePosition(animatedBall)
+end
+
+
 ball.updatePosition = function(animatedBall)
     animatedBall.xPosition = animatedBall.xPosition + animatedBall.xSpeed
     animatedBall.yPosition = animatedBall.yPosition + animatedBall.ySpeed
