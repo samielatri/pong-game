@@ -7,7 +7,8 @@ local player = {
                 yPosition = y,
                 width = w,
                 height = h
-            }
+            },
+            score = 0
         }
         return player
     end

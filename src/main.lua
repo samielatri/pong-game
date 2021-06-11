@@ -3,6 +3,12 @@ require("env")
 local Player = require("player")
 local Ball = require("ball")
 
+function initPlayersPosition()
+  player1.pad.xPosition = 80
+  player1.pad.yPosition = playerYInit
+  player2.pad.xPosition = 700
+  player2.pad.yPosition = playerYInit
+end
 
 function love.load()
     screenHeight = love.graphics.getHeight()
@@ -34,26 +40,28 @@ function love.update()
     
     -- down bar collision
     if ball.yPosition > screenHeight - ball.height then
-      print("collision down")
       ball.ySpeed = - ball.ySpeed 
     end
     
     -- up bar collision
     if ball.yPosition < 0 then
-      print("collision up")
       ball.ySpeed = - ball.ySpeed
     end
     
     -- right bar collision
     if ball.xPosition > screenWidth then
-      print("right collision")
       ball.xSpeed = - ball.xSpeed
+      player1.score = player1.score + 1
+      Ball.center(ball)
+      initPlayersPosition()
     end
     
     -- left bar collision
     if ball.xPosition < 0 then
-      print("left collision")
       ball.xSpeed = - ball.xSpeed
+      player2.score = player2.score + 1
+      Ball.center(ball)
+      initPlayersPosition()
     end
 
 
@@ -63,7 +71,6 @@ function love.update()
     if ball.xPosition < player1.pad.width + player1.pad.xPosition and
         ball.yPosition > player1.pad.yPosition and
         ball.yPosition < player1.pad.yPosition + player1.pad.height then
-      print("collision with left bar")
       ball.xPosition = player1.pad.xPosition + player1.pad.width
       ball.xSpeed = - ball.xSpeed
     end
@@ -72,30 +79,34 @@ function love.update()
     if ball.xPosition > player2.pad.xPosition and
         ball.yPosition > player2.pad.yPosition and
         ball.yPosition < player2.pad.yPosition + player2.pad.height then
-      print("collision with right bar")
       ball.xPosition = player2.pad.xPosition
       ball.xSpeed = - ball.xSpeed
     end
-    
-    if false then
-      
-      print("collision with left bar")
-      ball.xSpeed = - ball.xSpeed  
-    end
-    
+       
     if love.keyboard.isDown("up") and 
         player1.pad.yPosition > 0 and 
         player2.pad.yPosition > 0  then
         player1.pad.yPosition = player1.pad.yPosition - 2
-        player2.pad.yPosition = player2.pad.yPosition - 2
     end
 
     if (love.keyboard.isDown("down") and
          player1.pad.yPosition < screenHeight - player1.pad.height and 
          player2.pad.yPosition < screenHeight - player2.pad.height) then
         player1.pad.yPosition = player1.pad.yPosition + 2
+    end
+    
+    if love.keyboard.isDown("z") and 
+        player1.pad.yPosition > 0 and 
+        player2.pad.yPosition > 0  then
+        player2.pad.yPosition = player2.pad.yPosition - 2
+    end
+
+    if (love.keyboard.isDown("s") and
+         player1.pad.yPosition < screenHeight - player1.pad.height and 
+         player2.pad.yPosition < screenHeight - player2.pad.height) then
         player2.pad.yPosition = player2.pad.yPosition + 2
     end
+    
 end
 
 function love.draw()
@@ -122,5 +133,10 @@ function love.draw()
         ball.width,
         ball.height
     )
-
+    -- draw the score
+    love.graphics.print(
+      player1.score .. " - " .. player2.score,
+      screenWidth / 2,
+      0
+    )
 end
